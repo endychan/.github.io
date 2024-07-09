@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Tools</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body>
+    <div class="div_grid_2">
+        <button id="btnHID">HID</button>
+        <button id="btnSerial">Serial</button>
+    </div>
+    <div class="div_grid_2">
+        <textarea id="iptLog" readonly></textarea>
+    </div>
+    <script>
+
+        const btnHID = document.querySelector("#btnHID");
+        const btnSerial = document.querySelector("#btnSerial");
+        const iptLog = document.querySelector("#iptLog");
+
+        btnHID.onclick = async () => {
+            window.location.href = 'webhid.html';
+        };
+
+        btnSerial.onclick = () => {
+            window.location.href = 'webserial.html';
+        };
+
+        function getBrowser() {
+            // 简化的浏览器检测逻辑
+            return navigator.userAgent;
+        }
+
+        if (!('serial' in navigator)) {
+            iptLog.value += `当前浏览器不支持 Web Serial API串口操作, 请更换Edge或Chrome浏览器\n\n`;
+            iptLog.scrollTop = iptLog.scrollHeight; // 滚动到底部
+        } else {
+            var browserInfo = getBrowser();
+            iptLog.value += `Browser info: ${browserInfo} \n\n`;
+            iptLog.scrollTop = iptLog.scrollHeight; // 滚动到底部
+        }
+    </script>
+</body>
+</html>

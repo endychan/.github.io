@@ -1,0 +1,31 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #f7f7ff;
+}
+
+.div_grid_3 {
+    height: calc(100% - 4rem);
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2rem 1fr;
+    row-gap: 1rem;
+    column-gap: 2rem;
+}
+
+.div_grid_2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2rem 0fr;
+    row-gap: 1rem;
+    column-gap: 2rem;
+}
+
+textarea {
+    resize: none;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 1rem;
+}

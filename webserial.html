@@ -6,80 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Serail Passthrough Tool</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        html,
-        body {
-            height: 100vh;
-            background-color: #f7f7ff;
-        }
-
-        div {
-            height: calc(100% - 4rem);
-            padding: 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: 2rem 1fr;
-            row-gap: 1rem;
-            column-gap: 2rem;
-        }
-
-        div_child {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 2rem 0fr;
-            row-gap: 1rem;
-            column-gap: 2rem;
-        }
-
-        textarea {
-            resize: none;
-            overflow-y: scroll;
-            overflow-x: hidden;
-            padding: 1rem;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
     <script>
-        function getBroswer() {
-            var sys = {};
-            var ua = navigator.userAgent.toLowerCase();
-            var s;
-            (s = ua.match(/edge\/([\d.]+)/)) ? sys.edge = s[1] :
-                (s = ua.match(/rv:([\d.]+)\) like gecko/)) ? sys.ie = s[1] :
-                    (s = ua.match(/msie ([\d.]+)/)) ? sys.ie = s[1] :
-                        (s = ua.match(/firefox\/([\d.]+)/)) ? sys.firefox = s[1] :
-                            (s = ua.match(/chrome\/([\d.]+)/)) ? sys.chrome = s[1] :
-                                (s = ua.match(/opera.([\d.]+)/)) ? sys.opera = s[1] :
-                                    (s = ua.match(/version\/([\d.]+).*safari/)) ? sys.safari = s[1] : 0;
-
-            if (sys.edge) return { broswer: "Edge", version: sys.edge };
-            if (sys.ie) return { broswer: "IE", version: sys.ie };
-            if (sys.firefox) return { broswer: "Firefox", version: sys.firefox };
-            if (sys.chrome) return { broswer: "Chrome", version: sys.chrome };
-            if (sys.opera) return { broswer: "Opera", version: sys.opera };
-            if (sys.safari) return { broswer: "Safari", version: sys.safari };
-
-            return { broswer: "", version: "0" };
-        }
         if (!('serial' in navigator)) {
             alert('当前浏览器不支持 Web Serial API串口操作,请更换Edge或Chrome浏览器')
-        } else {
-            var abc = getBroswer();
-            alert("broswer:" + abc.broswer + " version:" + abc.version)
         }
     </script>
 </head>
 
 <body>
-    <div>
-        <div_child>
+    <div class="div_grid_3">
+        <div class="div_grid_2">
             <button id="btnOpen">open</button>
-            <button id="btnClose">close</button>
-        </div_child>
+            <button id="btnClose" disabled>close</button>
+        </div>
         <button id="btnSend">send</button>
         <button id="btnClear">clear</button>
         <textarea id="iptLog" readonly></textarea>
@@ -187,7 +127,7 @@
             }
 
             await port.close(); // 关闭串口
-            //await port.forget(); // 取消授权
+            await port.forget(); // 取消授权
             port = null;
             console.log("Port closed.");
             iptLog.value += "Port opened\n\n";
